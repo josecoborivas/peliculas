@@ -13,6 +13,8 @@ export class SlideshowPosterComponent implements OnInit {
   slidesOpts = {
     slidesPerView: 3.3,
     freeMode: true
+    //slidesPerColumn: 2,
+    //slidesPerColumnFill: 'row'
   }
   constructor() { }
 
