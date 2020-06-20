@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Pelicula } from 'src/app/interfaces/interfaces';
+import { ModalController } from '@ionic/angular';
+import { DetalleComponent } from '../detalle/detalle.component';
 
 @Component({
   selector: 'app-slideshow-poster',
@@ -16,8 +18,19 @@ export class SlideshowPosterComponent implements OnInit {
     //slidesPerColumn: 2,
     //slidesPerColumnFill: 'row'
   }
-  constructor() { }
+  constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {}
+
+  async mostrarPelicula(id: string) {
+    const modal = await this.modalCtrl.create({
+      component: DetalleComponent,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        id
+      }
+    });
+    return await modal.present();
+  }
 
 }
