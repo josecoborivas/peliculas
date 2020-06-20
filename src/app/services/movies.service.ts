@@ -41,10 +41,15 @@ export class MoviesService {
   }
 
   getPeliculaDetalle(id: string){
-    return this.ejecutarQuery<PeliculaDetalle>(`/movie/${id}?any=1`)
+    return this.ejecutarQuery<PeliculaDetalle>(`/movie/${id}?any=1&append_to_response=videos`)
   }
 
   getActoresPeliculas(id: string){
     return this.ejecutarQuery<RespuestaCredits>(`/movie/${id}/credits?any=1`)
+  }
+
+  buscarPelicula(query){
+    //return this.ejecutarQuery<RespuestaCredits>(`/search/movie?&query=${query}&include_adult=true`);
+    return this.ejecutarQuery<RespuestaCredits>(`/search/movie?&query=${query}`);
   }
 }

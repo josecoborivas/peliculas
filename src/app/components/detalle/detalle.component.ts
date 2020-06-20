@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MoviesService } from '../../services/movies.service';
 import { PeliculaDetalle, Cast } from '../../interfaces/interfaces';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { DataLocalService } from '../../services/data-local.service';
 
 @Component({
   selector: 'app-detalle',
@@ -20,7 +21,11 @@ export class DetalleComponent implements OnInit {
     freeMode: true,
     spaceBetween: -5
   }
-  constructor(private movieService:MoviesService, private modalCtrl: ModalController) { }
+  constructor(
+    private movieService:MoviesService,
+    private modalCtrl: ModalController,
+    private dataLocalService: DataLocalService,
+    private toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.movieService.getPeliculaDetalle(this.id).subscribe(result => {
@@ -39,7 +44,16 @@ export class DetalleComponent implements OnInit {
   }
 
   favorito(){
-    
+    this.dataLocalService.guardarPelicula(this.pelicula);
+    this.mostrarToast();
+  }
+
+  async mostrarToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Se agregó a tus favoritos!',
+      duration: 2000
+    });
+    toast.present();
   }
 
 }
