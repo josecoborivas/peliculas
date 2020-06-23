@@ -46,6 +46,7 @@ export interface PeliculaDetalle {
   tagline?: string;
   title?: string;
   video?: boolean;
+  videos?: any;
   vote_average?: number;
   vote_count?: number;
 }
@@ -67,7 +68,7 @@ interface Productioncompany {
   origin_country: string;
 }
 
-interface Genre {
+export interface Genre {
   id: number;
   name: string;
 }

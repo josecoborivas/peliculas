@@ -2,9 +2,15 @@
   <ion-label class="titulo">
     <h1>{{ pelicula.title }}</h1>
   </ion-label>
+  
   <img [src]="pelicula.backdrop_path | image" *ngIf="pelicula.backdrop_path">
+  
 
   <ion-grid>
+    <ion-chip class="trailer" color="ligh" mode="ios" outline="true" (click)="verTrailer(pelicula.videos.results[0].key)">
+      <ion-icon color="danger" name="logo-youtube"></ion-icon>
+      <ion-label>Trailer</ion-label>
+    </ion-chip>
     <ion-row>
       <ion-col size="4" class="poster-detalle-sobre">
         <ion-card class="poster">
@@ -78,7 +84,7 @@
     <ion-buttons slot="end">
       <ion-button (click)="favorito()">
         <ion-label>Favorito</ion-label>
-        <ion-icon slot="start" name="star-outline"></ion-icon>
+        <ion-icon slot="start" [name]="estado"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

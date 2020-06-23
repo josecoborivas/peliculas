@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MoviesService } from '../../services/movies.service';
 import { PeliculaDetalle, Cast } from '../../interfaces/interfaces';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { DataLocalService } from '../../services/data-local.service';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 
 @Component({
   selector: 'app-detalle',
@@ -20,21 +21,28 @@ export class DetalleComponent implements OnInit {
     slidesPerView: 3.3,
     freeMode: true,
     spaceBetween: -5
-  }
+  };
+  estado = '';
+  
   constructor(
     private movieService:MoviesService,
     private modalCtrl: ModalController,
     private dataLocalService: DataLocalService,
-    private toastCtrl: ToastController) { }
+    private youtube: YoutubeVideoPlayer) {
+      
+    }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+    const existe = await this.dataLocalService.existePelicula(this.id);
+    if(existe) this.estado = 'star'; else this.estado = 'star-outline';
+
     this.movieService.getPeliculaDetalle(this.id).subscribe(result => {
-      console.log(result);
       this.pelicula = result;
+      console.log(this.pelicula)
     })
 
     this.movieService.getActoresPeliculas(this.id).subscribe(result => {
-      console.log(result);
       this.actores = result.cast;
     })
   }
@@ -45,15 +53,17 @@ export class DetalleComponent implements OnInit {
 
   favorito(){
     this.dataLocalService.guardarPelicula(this.pelicula);
-    this.mostrarToast();
+    setTimeout(() => {
+      this.dataLocalService.existePelicula(this.id).then(result => {
+        if(result) this.estado = 'star'; else this.estado = 'star-outline';
+      })
+    }, 500);
   }
 
-  async mostrarToast() {
-    const toast = await this.toastCtrl.create({
-      message: 'Se agregó a tus favoritos!',
-      duration: 2000
-    });
-    toast.present();
+  verTrailer(id){
+    this.youtube.openVideo(id);
   }
+
+  
 
 }

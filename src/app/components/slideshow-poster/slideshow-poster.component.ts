@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Pelicula } from 'src/app/interfaces/interfaces';
 import { ModalController } from '@ionic/angular';
 import { DetalleComponent } from '../detalle/detalle.component';
+
 
 @Component({
   selector: 'app-slideshow-poster',
@@ -11,6 +12,7 @@ import { DetalleComponent } from '../detalle/detalle.component';
 export class SlideshowPosterComponent implements OnInit {
 
   @Input() peliculas: Pelicula[]=[];
+  @Output() reloadFavorito = new EventEmitter();
 
   slidesOpts = {
     slidesPerView: 3.3,
@@ -30,7 +32,9 @@ export class SlideshowPosterComponent implements OnInit {
         id
       }
     });
-    return await modal.present();
+     await modal.present();
+     await modal.onWillDismiss();    // Acá esperamos con await a que el modal vaya a cerrarse
+     this.reloadFavorito.emit();
   }
 
 }

@@ -26,7 +26,6 @@ export class Tab2Page {
         this.movieService.buscarPelicula(valor).subscribe(result => {
           this.peliculas = result['results'];
           this.load = false;
-          console.log(this.peliculas);
         });
         
       }, 500);
