@@ -50,8 +50,8 @@ export class MoviesService {
   }
 
   buscarPelicula(query){
-    return this.ejecutarQuery<RespuestaCredits>(`/search/movie?&query=${query}&include_adult=true`);
-    //return this.ejecutarQuery<RespuestaCredits>(`/search/movie?&query=${query}`);
+    //return this.ejecutarQuery<RespuestaCredits>(`/search/movie?&query=${query}&include_adult=true`);
+    return this.ejecutarQuery<RespuestaCredits>(`/search/movie?&query=${query}`);
   }
 
   cargarGeneros(): Promise<Genre[]> {

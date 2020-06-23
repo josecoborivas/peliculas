@@ -3,7 +3,6 @@ import { MoviesService } from '../../services/movies.service';
 import { PeliculaDetalle, Cast } from '../../interfaces/interfaces';
 import { ModalController } from '@ionic/angular';
 import { DataLocalService } from '../../services/data-local.service';
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 
 @Component({
   selector: 'app-detalle',
@@ -27,8 +26,7 @@ export class DetalleComponent implements OnInit {
   constructor(
     private movieService:MoviesService,
     private modalCtrl: ModalController,
-    private dataLocalService: DataLocalService,
-    private youtube: YoutubeVideoPlayer) {
+    private dataLocalService: DataLocalService) {
       
     }
 
@@ -61,7 +59,7 @@ export class DetalleComponent implements OnInit {
   }
 
   verTrailer(id){
-    this.youtube.openVideo(id);
+    console.log('Ver Trailer')
   }
 
   

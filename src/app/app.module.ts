@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +23,6 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
   ],
   providers: [
     StatusBar,
-    YoutubeVideoPlayer,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
